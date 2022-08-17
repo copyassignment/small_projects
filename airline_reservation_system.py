@@ -219,3 +219,42 @@ def user_management():  # this function is responsible for adding users
                                                                                                              column=0)
 
 
+
+
+def update():
+    scheduled_update = tk.Tk()
+    scheduled_update.title("Update/Add A Flight")
+    tk.Label(master=scheduled_update, text="Enter The Flight Number").grid(row=1, column=0)
+    number_of_flight = tk.Entry(master=scheduled_update)
+    number_of_flight.grid(row=1, column=1)
+
+    def update_btn1():
+        if number_of_flight.get() not in scheduled:
+            scheduled[number_of_flight.get()] = ["", "", ""]
+        tk.Label(master=scheduled_update, text="Enter Departure Time").grid(row=3, column=0)
+        departure_time = tk.Entry(master=scheduled_update)
+        departure_time.grid(row=3, column=1)
+        tk.Label(master=scheduled_update, text="Enter Status").grid(row=4, column=0)
+        stat = tk.Entry(master=scheduled_update)
+        stat.grid(row=4, column=1)
+        tk.Label(master=scheduled_update, text="Enter Destination").grid(row=5, column=0)
+        destination_place = tk.Entry(master=scheduled_update)
+        destination_place.grid(row=5, column=1)
+
+        def update_btn2():
+            if departure_time.get() != "":
+                scheduled[number_of_flight.get()][0] = departure_time.get()
+            if stat.get() != "":
+                scheduled[number_of_flight.get()][2] = stat.get()
+            if destination_place.get() != "":
+                scheduled[number_of_flight.get()][1] = destination_place.get()
+            update_root = tk.Tk()
+            update_root.title("Successfully Updated!")
+            tk.Label(master=update_root, text="Successfully Updated!!").grid(row=0, column=0)
+            scheduled_update.destroy()
+
+        tk.Button(master=scheduled_update, text="Confirm", command=update_btn2).grid(row=6, column=1)
+
+    tk.Button(master=scheduled_update, text="Confirm", command=update_btn1).grid(row=2, column=1)
+    scheduled_update.mainloop()
+
