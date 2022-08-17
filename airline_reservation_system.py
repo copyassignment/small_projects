@@ -306,3 +306,42 @@ def admin_main_features():  # admin control panel
     tk.Button(master=admin_main_scheduled, text="Manage Users", command=user_management).grid(row=5, column=1)
     tk.Button(master=admin_main_scheduled, text="Exit The Program", command=exit).grid(row=6, column=1)
     tk.Button(master=admin_main_scheduled, text="Update/Add A Flight", command=update).grid(row=3, column=1)
+
+def manager_main():  # supervisor control panel
+    def switch_users_manager():
+        manager_main_scheduled.destroy()
+        login()
+
+    manager_main_scheduled = tk.Tk()
+    image = tk.PhotoImage(file="icon.png")
+    ask = tk.Label(master=manager_main_scheduled, image=image).grid(row=0, column=0)
+    manager_main_scheduled.title("Supervisor Control Panel")
+    tk.Label(master=manager_main_scheduled, text="").grid(row=6, column=0)
+    tk.Button(master=manager_main_scheduled, text="View The Details Of Flights", command=viewing_flights).grid(row=1,
+                                                                                                               column=1)
+    tk.Button(master=manager_main_scheduled, text="Switch User", command=switch_users_manager).grid(row=2, column=1)
+    tk.Button(master=manager_main_scheduled, text="Cancel A Flight", command=cancel).grid(row=4, column=1)
+    tk.Button(master=manager_main_scheduled, text="Exit The Program", command=exit).grid(row=5, column=1)
+    tk.Button(master=manager_main_scheduled, text="Update/Add A Flight", command=update).grid(row=3, column=1)
+    manager_main_scheduled.mainloop()
+
+
+def viewing_flights():  # viewing flights
+    can = 0
+    ret = 1
+    display = tk.Tk()
+    display.title("View Details Of Flights")
+    tk.Label(master=display, text="Flight Number--------ETA--------Destination-------Status").grid(row=1, column=0)
+    for i in scheduled:
+        can += 1
+        ret += 1
+        tk.Label(master=display,
+                 text=(i, "-------", scheduled[i][0], "--------", scheduled[i][1], "--------", scheduled[i][2])).grid(
+            row=ret, column=0)
+    for i in cancelled:
+        can += 1
+        ret += 1
+        tk.Label(master=display,
+                 text=(i, "-------", cancelled[i][0], "--------", cancelled[i][1], "--------", cancelled[i][2])).grid(
+            row=ret, column=0)
+
