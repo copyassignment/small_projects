@@ -258,3 +258,51 @@ def update():
     tk.Button(master=scheduled_update, text="Confirm", command=update_btn1).grid(row=2, column=1)
     scheduled_update.mainloop()
 
+
+
+def cancel():  # this function cancels flights
+    def back_cancelled():
+        flight = flight_number.get()
+        cancelled_scheduled.destroy()
+        if flight in cancelled:
+            root = tk.Tk()
+            root.title("Already Cancelled!")
+            tk.Label(master=root, text="Flight Already Cancelled. Please try again!").grid(row=1, column=1)
+            cancel()
+        elif not (flight in scheduled):
+            root = tk.Tk()
+            root.title("Flight Not Found!")
+            tk.Label(master=root, text="Flight Not Found. Please try again!").grid(row=1, column=1)
+            cancel()
+        else:
+            flight1 = scheduled.pop(flight)
+            del flight1[2]
+            flight1.append("Cancelled")
+            cancelled[flight] = flight1
+            root = tk.Tk()
+            root.title("Success!")
+            tk.Label(master=root, text="Flight Successfully Cancelled!").grid(row=1, column=1)
+
+    cancelled_scheduled = tk.Tk()
+    cancelled_scheduled.title("Cancel a Flight")
+    tk.Label(master=cancelled_scheduled, text="Enter the flight number").grid(row=1, column=0)
+    flight_number = tk.Entry(master=cancelled_scheduled)
+    flight_number.grid(row=1, column=1)
+    admin7 = tk.Button(master=cancelled_scheduled, width=25, text="Confirm", command=back_cancelled).grid(row=2,
+                                                                                                          column=1)
+
+
+def admin_main_features():  # admin control panel
+    def switch_users_admin():
+        admin_main_scheduled.destroy()
+        login()
+
+    admin_main_scheduled = tk.Tk()
+    admin_main_scheduled.title("Admin Control Panel")
+    tk.Button(master=admin_main_scheduled, text="View The Details Of Flights", command=viewing_flights).grid(row=1,
+                                                                                                             column=1)
+    tk.Button(master=admin_main_scheduled, text="Switch User", command=switch_users_admin).grid(row=2, column=1)
+    tk.Button(master=admin_main_scheduled, text="Cancel A Flight", command=cancel).grid(row=4, column=1)
+    tk.Button(master=admin_main_scheduled, text="Manage Users", command=user_management).grid(row=5, column=1)
+    tk.Button(master=admin_main_scheduled, text="Exit The Program", command=exit).grid(row=6, column=1)
+    tk.Button(master=admin_main_scheduled, text="Update/Add A Flight", command=update).grid(row=3, column=1)
