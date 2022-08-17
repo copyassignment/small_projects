@@ -37,6 +37,7 @@ sum = 0
 
 run = True
 
+print("------- Vending Machine with Python-------\n\n")
 print("----------The Items In Stock Are----------\n\n")
 
 for i in items_in_stock:
